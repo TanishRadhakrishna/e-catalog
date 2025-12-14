@@ -1,4 +1,4 @@
-// app/products/[id]/page.jsx
+
 "use client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

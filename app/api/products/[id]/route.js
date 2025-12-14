@@ -1,4 +1,4 @@
-// app/api/products/[id]/route.js
+
 import { NextResponse } from "next/server";
 import sqlite3 from "sqlite3";
 import path from "path";

@@ -1,4 +1,4 @@
-// app/page.jsx
+
 "use client";
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
@@ -56,14 +56,12 @@ export default function Home() {
     setShowTopSellers(true);
   }
 
-  // Auto-refresh Top Sellers while modal is open
+  
   useEffect(() => {
     if (!showTopSellers) return;
-    // Fetch immediately when opened
     (async () => {
       try { await fetchTopSellers(); } catch {}
     })();
-    // Poll every 10s
     const id = setInterval(() => { fetchTopSellers(); }, 10000);
     return () => clearInterval(id);
   }, [showTopSellers]);
@@ -75,7 +73,6 @@ export default function Home() {
     if (res.ok) {
       alert("Sale recorded");
       fetchProducts();
-      // If the Top Sellers modal is open, refresh its data to reflect the latest sale
       if (showTopSellers) {
         fetchTopSellers();
       }

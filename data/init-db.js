@@ -29,7 +29,7 @@ db.serialize(() => {
     );
   `);
 
-  // Seed sample products only if empty
+ 
   db.get("SELECT COUNT(*) as c FROM Products", (err, row) => {
     if (err) return console.error(err);
     if (row.c === 0) {
