@@ -29,4 +29,4 @@ ENV HOSTNAME="0.0.0.0"
 CMD ["node", "server.js"]
 
 
-### File 3: Create `.dockerignore` in project root
+
