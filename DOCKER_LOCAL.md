@@ -104,19 +104,19 @@ docker rm ecommerce
 ---
 ## 7.Push to Docker Hub
 
-### 1. Login to Docker Hub
+1. Login to Docker Hub
 ```
 docker login
 Username: tanishr
 Password: [access token]
 ```
 
-### 2. Tag image with Docker Hub username
+2. Tag image with Docker Hub username
 ```bash
 docker tag ecommerce-catalog:latest tanishr/ecommerce-catalog:latest
 ```
 
-### 3. Push images
+3. Push images
 ```bash
 docker push tanishr/ecommerce-catalog:latest
 ```
