@@ -1,7 +1,6 @@
 # Docker Guide – E-commerce Catalog (Next.js)
 
-This document explains how Docker is used in the **E-commerce Catalog** project, how to run the container, and why Docker Compose is not required for this setup.
-
+This document explains how Docker is used in the **E-commerce Catalog** project, how to run the container.
 ---
 
 ## 1. Overview
@@ -106,15 +105,21 @@ docker rm ecommerce
 ## 7.Push to Docker Hub
 
 ### 1. Login to Docker Hub
+```
 docker login
 Username: tanishr
 Password: [access token]
+```
 
 ### 2. Tag image with Docker Hub username
+```bash
 docker tag ecommerce-catalog:latest tanishr/ecommerce-catalog:latest
+```
 
 ### 3. Push images
+```bash
 docker push tanishr/ecommerce-catalog:latest
+```
 
 ## 7. Running on Another System
 
@@ -122,7 +127,7 @@ On any system with Docker installed:
 
 ```bash
 docker pull tanishr/ecommerce-catalog:latest
-docker run -d -p 3000:3000 --name ecommerce tamishr/ecommerce-catalog:latest
+docker run -d -p 3000:3000 --name ecommerce tanishr/ecommerce-catalog:latest
 ```
 
 No project folder or source code is required.
@@ -132,59 +137,6 @@ Access the application at:
 ```
 http://localhost:3000
 ```
-
----
-
-## 8. Why There Is NO docker-compose.yml File
-
-### What Docker Compose Is
-
-Docker Compose is used when an application has **multiple containers** that must run together, such as:
-
-* Frontend (React / Next.js)
-* Backend (Node / Java / Python)
-* Database (PostgreSQL / MySQL)
-* Cache (Redis)
-* Message queues, etc.
-
-Compose helps define and start all services together using one file.
-
----
-
-### Why This Project Does NOT Use Docker Compose
-
-This project:
-
-* Has **only one service** (Next.js app)
-* Uses **SQLite**, not a separate database container
-* Does not depend on Redis, queues, or background workers
-* Can be started with a single `docker run` command
-
-Because of this:
-
-* Docker Compose would add unnecessary complexity
-* A `docker-compose.yml` file is **not required**
-
-Using plain Docker commands is simpler and clearer for this architecture.
-
----
-
-## 9. When Docker Compose SHOULD Be Used
-
-Docker Compose would be added if:
-
-* SQLite is replaced with PostgreSQL/MySQL
-* A separate backend service is introduced
-* Redis or other services are added
-* Multiple containers must communicate with each other
-
-Example future use case:
-
-* `frontend` container
-* `backend` container
-* `database` container
-
-At that point, Docker Compose becomes useful.
 
 ---
 ## 10. Summary
