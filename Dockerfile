@@ -1,4 +1,3 @@
-# Multi-stage Dockerfile for Next.js
 
 FROM node:20-alpine AS deps
 WORKDIR /app
