@@ -1,10 +1,12 @@
 
 "use client";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Navbar from "../components/Navbar";
 import TopSellersModal from "../components/TopSellersModal";
 
 export default function Home() {
+  const router = useRouter();
   const [products, setProducts] = useState([]);
   const [q, setQ] = useState("");
   const [favorites, setFavorites] = useState([]);
@@ -12,8 +14,23 @@ export default function Home() {
   const [msg, setMsg] = useState("");
   const [showTopSellers, setShowTopSellers] = useState(false);
   const [topSellersData, setTopSellersData] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => { fetchProducts(); }, []);
+  // Check authentication on mount
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (!user) {
+      router.replace("/login");
+    } else {
+      setIsAuthenticated(true);
+    }
+  }, [router]);
+
+  useEffect(() => { 
+    if (isAuthenticated) {
+      fetchProducts(); 
+    }
+  }, [isAuthenticated]);
 
   useEffect(() => {
     try { setFavorites(JSON.parse(localStorage.getItem("favorites") || "[]")); } catch { setFavorites([]); }
@@ -82,6 +99,11 @@ export default function Home() {
     }
   }
 
+  // Show nothing while checking authentication
+  if (!isAuthenticated) {
+    return null;
+  }
+
   return (
     <>
       <Navbar />
@@ -89,8 +111,8 @@ export default function Home() {
       <div className="container">
         <div className="card" style={{ marginBottom: '24px' }}>
           <div style={{ marginBottom: '12px' }}>
-            <label style={{ fontSize: '14px', color: '#cbd5e1', fontWeight: '500' }}>Search Products</label>
-            <input className="search" placeholder="Search by product name..." value={q} onChange={(e)=>setQ(e.target.value)} onKeyDown={(e)=>{ if (e.key==='Enter') fetchProducts(q) }} />
+            <label htmlFor="search-products" style={{ fontSize: '14px', color: '#cbd5e1', fontWeight: '500' }}> Search Products </label>
+            <input id="search-products" className="search" placeholder="Search by product name..." value={q} onChange={(e)=>setQ(e.target.value)} onKeyDown={(e)=>{ if (e.key==='Enter') fetchProducts(q) }}/>
           </div>
           <div style={{display:"flex", gap:12, marginTop:16, flexWrap: 'wrap'}}>
             <button className="btn" onClick={()=>fetchProducts(q)}>
