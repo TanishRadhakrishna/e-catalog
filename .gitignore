@@ -10,10 +10,19 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
+# test reports and documentation (local only, but keep test folder)
+/test-results/
+/playwright-report/
 /coverage
+!test/
+!test/**
 
-# next.js
+# generated files
+update-results.js
+/scripts/
+
+# documentation guides (internal reference only)
+Software_Testing_Guide_for_Interns.md
 /.next/
 /out/
 
@@ -39,3 +48,24 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Temporary files
+*.tmp
+*.bak
+*.temp
